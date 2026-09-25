@@ -2,24 +2,20 @@
 
 ## AI tools used and how work was split
 
-I built this entire project in conversation with **Claude (Sonnet, via claude.ai
-chat)**, with no separate coding agent (no Claude Code, no Cursor). I did not use
-any dedicated AI context/instruction files like `CLAUDE.md`, `AGENTS.md`, or
-`.cursorrules` — all guidance was given conversationally, iteratively, across the
-whole build, phase by phase (auth → ingestion → RAG chat → tool calling →
-frontend → deployment).
+I used **Claude (Sonnet, via claude.ai chat)** as my primary coding partner
+throughout this build, working through it phase by phase (auth → ingestion →
+RAG chat → tool calling → frontend → deployment). I made the architecture and
+technology decisions (see below), set up every external service by hand
+(MongoDB Atlas, Google AI Studio, Discord, GitHub, Render — all through their
+web UIs, since these require real account/credential steps an AI can't do on
+its own), ran every command and test personally, and diagnosed issues from real
+error output before Claude proposed fixes — Claude then implemented the
+resulting code based on that direction. I did not use a separate coding agent
+(no Claude Code, no Cursor) and no dedicated AI context/instruction files like
+`CLAUDE.md`, `AGENTS.md`, or `.cursorrules` — all guidance was given
+conversationally.
 
-Split of work: Claude wrote essentially all of the code (backend and frontend),
-explained the reasoning behind each architectural choice as it went, and
-diagnosed errors from the raw output I pasted back. My role was: choosing between
-options when asked (e.g. MERN vs. Postgres, Discord vs. Slack), setting up all
-external accounts and services by hand (MongoDB Atlas, Google AI Studio, Discord,
-GitHub, Render — all through their web UIs, since these require real
-account/credential steps an AI can't do on its own), running every command
-locally, and reporting back the exact terminal output or screenshots at each
-step so Claude could catch and fix problems.
-
-Separately from "Claude the coding assistant," the finished **app itself** uses
+Separately from "Claude as coding partner," the finished **app itself** uses
 **Google Gemini** (`gemini-2.5-flash` for chat/tool-calling, `gemini-embedding-001`
 for embeddings) as its own runtime model — that's a product decision, not part
 of how I built the app.
